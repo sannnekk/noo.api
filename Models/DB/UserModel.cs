@@ -11,23 +11,23 @@ namespace api.Models.DB
     {                
         [MaxLength(256)]
         [Column("name")]
-        public string Name { get; set; } = string.Empty;
+        public string? Name { get; set; }
 
         [MaxLength(256)]
         [Column("userName")]
-        public string UserName { get; set; } = string.Empty;
+        public string? UserName { get; set; }
 
         [MaxLength(128)]
         [Column("passwordHash")]
-        public SHA256 PasswordHash { get; set; }
+        public SHA256? PasswordHash { get; set; }
 
         [MaxLength(512)]
         [Column("google_token")]
-        public string GoogleToken { get; set; } = string.Empty;
+        public string? GoogleToken { get; set; }
 
         [MaxLength(32)]
         [Column("telegram_id")]
-        public string TelegramId { get; set; } = string.Empty;
+        public string? TelegramId { get; set; } 
 
         [Column("role")]
         public UserRole UserRole { get; set; }

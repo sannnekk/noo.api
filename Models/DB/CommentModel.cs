@@ -6,7 +6,7 @@ namespace api.Models.DB
     public class CommentModel : BaseModel
     {
         [Column("content")]
-        public string Content { get; set; }
+        public string? Content { get; set; }
 
         [Column("score")]
         public int Score { get; set; }

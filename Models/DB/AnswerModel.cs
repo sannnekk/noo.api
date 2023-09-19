@@ -6,7 +6,7 @@ namespace api.Models.DB
     public class AnswerModel : BaseModel
     {     
         [Column("content")]
-        public string Content { get; set; } = string.Empty;
+        public string? Content { get; set; }
 
         protected override void GenerateSlug()
         {
