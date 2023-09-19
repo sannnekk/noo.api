@@ -4,27 +4,18 @@ using System.ComponentModel.DataAnnotations;
 using System.Security.Cryptography;
 
 namespace api.Models.DB
-{
+{  
     [Serializable]
     [Table("User")]
     public class UserModel : BaseModel
-    {
-        [Key]
-        [Column("id")]
-        public override Ulid Id { get; set; }
-
-        [MaxLength(384)]
-        [Required]
-        [Column("slug")]
-        public override string Slug { get; }
-
+    {                
         [MaxLength(256)]
         [Column("name")]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         [MaxLength(256)]
         [Column("userName")]
-        public string UserName { get; set; }
+        public string UserName { get; set; } = string.Empty;
 
         [MaxLength(128)]
         [Column("passwordHash")]
@@ -32,11 +23,11 @@ namespace api.Models.DB
 
         [MaxLength(512)]
         [Column("google_token")]
-        public string GoogleToken { get; set; }
+        public string GoogleToken { get; set; } = string.Empty;
 
         [MaxLength(32)]
         [Column("telegram_id")]
-        public string TelegramId { get; set; }
+        public string TelegramId { get; set; } = string.Empty;
 
         [Column("role")]
         public UserRole UserRole { get; set; }
@@ -46,13 +37,7 @@ namespace api.Models.DB
         public bool isBlocked { get; set; }
 
         [Column("forbidden")]
-        public int Forbidden { get; set; }
-
-        [Column("created_at")]
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-        [Column("updated_at")]
-        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+        public int Forbidden { get; set; }  
 
         protected override void GenerateSlug()
         {
