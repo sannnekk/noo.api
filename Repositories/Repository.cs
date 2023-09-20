@@ -1,5 +1,3 @@
-using api.ModelDefinitions;
-
 namespace api.Repositories;
 
 public class Repository
@@ -11,7 +9,7 @@ public class Repository
         this.entityName = entityName;
     }
 
-    public virtual IEnumerable<T> Get<T>() where T : IModelDefinition
+    public virtual IEnumerable<T> Get<T>()
     {
         return new List<T>();
     }

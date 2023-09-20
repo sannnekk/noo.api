@@ -9,6 +9,7 @@ namespace api.Models.DB
         [Column("subject_id")]
         [Required]
         public Ulid SubjectId { get; set; }
+        public SubjectModel? Subject { get; set; }
 
         [Column("name")]
         [MaxLength(255)]

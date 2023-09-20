@@ -14,6 +14,8 @@ namespace api.Models.DB
         [Column("description")]
         public string? Description {  get; set; }
 
+        public List<MaterialModel> Materials { get; set; }
+
         protected override void GenerateSlug()
         {
             // TODO: Implement SubjectModel slug
