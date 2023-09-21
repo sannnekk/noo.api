@@ -8,6 +8,8 @@ public interface IRepository<T> where T : BaseModel
 
     Task<IEnumerable<T>> GetMany(Func<T, bool> predicate);
 
+    Task<IEnumerable<T>> GetMany(Func<T, bool> predicate, ICriteria criteria);
+
     Task Add(T entity);
 
     Task Delete(T entity);

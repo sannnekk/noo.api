@@ -17,6 +17,11 @@ public class BaseRepository<T> : IRepository<T> where T : BaseModel
         return await Context.Set<T>().FindAsync(id);
     }
 
+    public async Task<IEnumerable<T>> GetMany(Func<T, bool> predicate, ICriteria criteria)
+    {
+        return await Task.FromResult(Context.Set<T>().Where(predicate).Skip(criteria.Offset).Take(criteria.Limit).ToList());
+    }
+
     public async Task<IEnumerable<T>> GetMany(Func<T, bool> predicate)
     {
         return await Task.FromResult(Context.Set<T>().Where(predicate).ToList());
