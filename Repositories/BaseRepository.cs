@@ -19,7 +19,7 @@ public class BaseRepository<T> : IRepository<T> where T : BaseModel
 
     public async Task<IEnumerable<T>> GetMany(Func<T, bool> predicate)
     {
-        return await Task.FromResult(Context.Set<T>().Where(predicate));
+        return await Task.FromResult(Context.Set<T>().Where(predicate).ToList());
     }
 
     public async Task Add(T entity)
@@ -30,5 +30,10 @@ public class BaseRepository<T> : IRepository<T> where T : BaseModel
     public async Task Delete(T entity)
     {
         await Task.FromResult(Context.Set<T>().Remove(entity));
+    }
+
+    public async Task<int> Count()
+    {
+        return await Context.Set<T>().CountAsync();
     }
 }

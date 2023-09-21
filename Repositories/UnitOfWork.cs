@@ -1,5 +1,4 @@
 using api.Repositories.EntityRepositories;
-using Microsoft.EntityFrameworkCore;
 
 namespace api.Repositories;
 

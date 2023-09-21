@@ -11,5 +11,7 @@ public interface IRepository<T> where T : BaseModel
     Task Add(T entity);
 
     Task Delete(T entity);
+
+    Task<int> Count();
 }
 
