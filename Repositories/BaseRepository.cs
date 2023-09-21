@@ -19,7 +19,14 @@ public class BaseRepository<T> : IRepository<T> where T : BaseModel
 
     public async Task<IEnumerable<T>> GetMany(Func<T, bool> predicate, ICriteria criteria)
     {
-        return await Task.FromResult(Context.Set<T>().Where(predicate).Skip(criteria.Offset).Take(criteria.Limit).ToList());
+        return await Task.FromResult(
+            Context
+                .Set<T>()
+                .Where(predicate)
+                .Skip(criteria.Page * criteria.Pagination)
+                .Take(criteria.Pagination)
+                .ToList()
+            );
     }
 
     public async Task<IEnumerable<T>> GetMany(Func<T, bool> predicate)
