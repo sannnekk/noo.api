@@ -5,9 +5,9 @@ namespace api.Repositories;
 
 public class UnitOfWork : IUnitOfWork
 {
-    protected readonly AppContext _context;
+    protected readonly AppDbContext _context;
 
-    public UnitOfWork(AppContext context)
+    public UnitOfWork(AppDbContext context)
     {
         _context = context;
 
