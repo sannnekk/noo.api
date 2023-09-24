@@ -1,4 +1,5 @@
 using api.Repositories.EntityRepositories;
+using api.Repositories.EntityRepositories.Interfaces;
 
 namespace api.Repositories;
 
