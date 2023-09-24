@@ -22,14 +22,14 @@ namespace api.Models.DB
 
         [Column("updated_at")]
         public DateTime UpdatedAt { get; set; }
-        
+
         protected BaseModel()
         {
             GenerateSlug();
             CreatedAt = DateTime.Now;
             UpdatedAt = DateTime.Now;
         }
-           
+
 
         /// <summary>
         /// Algorithm for generating slug
