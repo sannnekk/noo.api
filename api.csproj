@@ -19,8 +19,4 @@
     <PackageReference Include="Ulid" Version="1.3.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>

@@ -4,14 +4,14 @@ namespace api.Services.Interfaces
 {
     public interface ISubjectService
     {
-        Task<SubjectModel> GetSubject(Ulid id);
+        Task<SubjectModel> GetSubjectAsync(Ulid id);
 
-        Task<SubjectModel> GetSubjectWithMaterials(Ulid id);
+        Task<SubjectModel> GetSubjectWithMaterialsAsync(Ulid id);
 
-        Task RemoveSubject(SubjectModel subject);
+        Task RemoveSubjectAsync(SubjectModel subject);
 
-        Task CreateSubject(SubjectModel newSubject);
+        Task CreateSubjectAsync(SubjectModel newSubject);
 
-        Task UpdateSubject(SubjectModel newSubject);
+        Task UpdateSubjectAsync(SubjectModel newSubject);
     }
 }

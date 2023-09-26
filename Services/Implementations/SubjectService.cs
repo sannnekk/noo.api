@@ -13,7 +13,7 @@ namespace api.Services.Implementations
             _unitOfWork = unitOfWork;
         }
 
-        public async Task CreateSubject(SubjectModel newSubject)
+        public async Task CreateSubjectAsync(SubjectModel newSubject)
         {
             using (_unitOfWork)
             {
@@ -22,7 +22,7 @@ namespace api.Services.Implementations
             }
         }
 
-        public async Task<SubjectModel?> GetSubject(Ulid id)
+        public async Task<SubjectModel?> GetSubjectAsync(Ulid id)
         {
             using(_unitOfWork)
             {
@@ -31,17 +31,16 @@ namespace api.Services.Implementations
             }
         }
 
-        public Task<SubjectModel?> GetSubjectWithMaterials(Ulid id)
+        public Task<SubjectModel?> GetSubjectWithMaterialsAsync(Ulid id)
         {
             using (_unitOfWork)
             {
                 var subject = _unitOfWork.Subjects.GetSubjectWithMaterials(id);
                 return subject;
             }
-
         }
 
-        public async Task RemoveSubject(SubjectModel subject)
+        public async Task RemoveSubjectAsync(SubjectModel subject)
         {
             using (_unitOfWork)
             {
@@ -50,7 +49,7 @@ namespace api.Services.Implementations
             }
         }
 
-        public async Task UpdateSubject(SubjectModel newSubject)
+        public async Task UpdateSubjectAsync(SubjectModel newSubject)
         {
             using (_unitOfWork)
             {
