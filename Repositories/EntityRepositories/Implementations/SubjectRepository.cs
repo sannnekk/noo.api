@@ -8,10 +8,11 @@ namespace api.Repositories.EntityRepositories.Implementations
     {
         public SubjectRepository(DbContext context) : base(context) { }
       
-        public async Task<List<SubjectModel>> GetSubjectsWithMaterials(Func<SubjectModel, bool> predicate)
+        public async Task<IEnumerable<SubjectModel>> GetSubjectsWithMaterials(Func<SubjectModel, bool> predicate)
         {
             return await Task.FromResult(
                 Context.Set<SubjectModel>()
+                .Include(s => s.Materials)
                 .Where(predicate)
                 .ToList());
         }

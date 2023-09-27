@@ -56,7 +56,7 @@ namespace api.Services.Implementations
                 var subject =  await _unitOfWork.Subjects.Get(newSubject.Id);
                 
                 if(subject == null)
-                    throw new ArgumentNullException(nameof(subject));   
+                    throw new NullReferenceException();   
 
                 subject.Name = newSubject.Name;
                 subject.Description = newSubject.Description;
