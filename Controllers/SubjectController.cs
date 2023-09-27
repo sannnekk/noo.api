@@ -33,9 +33,9 @@ namespace api.Controllers
                 
                 return Ok(subject);
             }
-            catch (Exception ex) 
+            catch
             {
-                return Problem(ex.Message);
+                return Problem();
             }            
         }
 
@@ -53,9 +53,49 @@ namespace api.Controllers
                 await _subjectService.CreateSubjectAsync(newSubject);
                 return Ok();
             }
-            catch(Exception ex)
+            catch
             {
-                return Problem(ex.Message);
+                return Problem();
+            }
+        }
+
+        [Authorize(Roles = nameof(UserRole.Teacher))]
+        [HttpDelete]
+        public async Task<IActionResult> Delete(SubjectModel newSubject)
+        {
+            try
+            {
+                var validationResult = _validator.Validate(newSubject);
+
+                if (!validationResult.IsValid)
+                    return BadRequest(validationResult.ToString("\n"));
+
+                await _subjectService.RemoveSubjectAsync(newSubject);
+                return Ok();
+            }
+            catch
+            {
+                return Problem();
+            }
+        }
+
+        [Authorize(Roles = nameof(UserRole.Teacher))]
+        [HttpPut]
+        public async Task<IActionResult> Put(SubjectModel newSubject)
+        {
+            try
+            {
+                var validationResult = _validator.Validate(newSubject);
+
+                if (!validationResult.IsValid)
+                    return BadRequest(validationResult.ToString("\n"));
+
+                await _subjectService.UpdateSubjectAsync(newSubject);
+                return Ok();
+            }
+            catch
+            {
+                return Problem();
             }
         }
 

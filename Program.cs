@@ -1,4 +1,9 @@
+using api.Models.DB;
 using api.Repositories;
+using api.Services.Implementations;
+using api.Services.Interfaces;
+using api.Validators;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -22,6 +27,10 @@ var connection = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(connection, new MySqlServerVersion(new Version(8, 0, 25))));
+
+builder.Services.AddScoped<IValidator<SubjectModel>, SubjectModelValidator>();
+builder.Services.AddScoped<ISubjectService, SubjectService>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddControllers();
 

@@ -31,11 +31,11 @@ namespace api.Services.Implementations
             }
         }
 
-        public Task<SubjectModel?> GetSubjectWithMaterialsAsync(Ulid id)
+        public async Task<SubjectModel?> GetSubjectWithMaterialsAsync(Ulid id)
         {
             using (_unitOfWork)
             {
-                var subject = _unitOfWork.Subjects.GetSubjectWithMaterials(id);
+                var subject = await _unitOfWork.Subjects.GetSubjectWithMaterials(id);
                 return subject;
             }
         }
