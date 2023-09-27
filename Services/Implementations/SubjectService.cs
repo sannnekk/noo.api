@@ -31,7 +31,7 @@ namespace api.Services.Implementations
             }
         }
 
-        public async Task<SubjectModel?> GetSubjectWithMaterialsAsync(Ulid id)
+        public async Task<SubjectModel> GetSubjectWithMaterialsAsync(Ulid id)
         {
             using (_unitOfWork)
             {

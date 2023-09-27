@@ -31,6 +31,15 @@ namespace api.Services.Implementations
             }
         }
 
+        public async Task<MaterialModel> GetMaterialWithWorksAsync(Ulid id)
+        {
+            using (_unitOfWork)
+            {
+                var material = await _unitOfWork.Materials.GetMaterialWithWorks(id);
+                return material;
+            }
+        }
+
         public async Task RemoveMaterialAsync(MaterialModel material)
         {
             using (_unitOfWork)

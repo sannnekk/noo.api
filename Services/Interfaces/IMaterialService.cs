@@ -6,6 +6,8 @@ namespace api.Services.Interfaces
     {
         Task<MaterialModel> GetMaterialAsync(Ulid id);
 
+        Task<MaterialModel> GetMaterialWithWorksAsync(Ulid id);
+
         Task RemoveMaterialAsync(MaterialModel material);
 
         Task CreateMaterialAsync(MaterialModel newMaterial);

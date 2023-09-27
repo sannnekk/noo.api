@@ -93,7 +93,7 @@ namespace api.Controllers
                 await _subjectService.UpdateSubjectAsync(newSubject);
                 return Ok();
             }
-            catch(NullReferenceException ex)
+            catch(NullReferenceException)
             {
                 return BadRequest();
             }

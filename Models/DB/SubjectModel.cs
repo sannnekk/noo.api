@@ -12,9 +12,9 @@ namespace api.Models.DB
         public string Name { get; set; } = string.Empty;
 
         [Column("description")]
-        public string? Description {  get; set; }
+        public string Description { get; set; } = string.Empty;
 
-        public List<MaterialModel> Materials { get; set; }
+        public List<MaterialModel>? Materials { get; set; }
 
         protected override void GenerateSlug()
         {
