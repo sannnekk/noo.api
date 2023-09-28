@@ -1,5 +1,6 @@
 ﻿using api.Models.DB;
 using api.Models.Enums;
+using api.Services.Implementations;
 using api.Services.Interfaces;
 using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
@@ -8,15 +9,15 @@ using Microsoft.AspNetCore.Mvc;
 namespace api.Controllers
 {
     [ApiController]
-    [Route("noo/subject")]
-    public class SubjectController : ControllerBase
+    [Route("noo/material")]
+    public class MaterialController : ControllerBase
     {
-        private readonly ISubjectService _subjectService;
-        private readonly IValidator<SubjectModel> _validator;
+        private readonly IMaterialService _materialService;
+        private readonly IValidator<MaterialModel> _validator;
 
-        public SubjectController(ISubjectService subjectService, IValidator<SubjectModel> validator)
+        public MaterialController(IMaterialService materialService, IValidator<MaterialModel> validator)
         {
-            _subjectService = subjectService;
+            _materialService = materialService;
             _validator = validator;
         }
 
@@ -26,31 +27,31 @@ namespace api.Controllers
         {
             try
             {
-                var subject = await _subjectService.GetSubjectWithMaterialsAsync(id);
+                var response = await _materialService.GetMaterialWithWorksAsync(id);
 
-                if(subject == null)                
+                if(response == null)
                     return NotFound();
-                
-                return Ok(subject);
+
+                return Ok(response);
             }
             catch
             {
                 return Problem();
-            }            
+            }
         }
 
         [Authorize(Roles = nameof(UserRole.Teacher))]
         [HttpPost]
-        public async Task<IActionResult> Post(SubjectModel newSubject)
+        public async Task<IActionResult> Post(MaterialModel newMaterial)
         {
             try
             {
-                var validationResult = _validator.Validate(newSubject);
+                var validationResult = _validator.Validate(newMaterial);
 
                 if (!validationResult.IsValid)
                     return BadRequest(validationResult.ToString("\n"));
-                                   
-                await _subjectService.CreateSubjectAsync(newSubject);
+
+                await _materialService.CreateMaterialAsync(newMaterial);
                 return Ok();
             }
             catch
@@ -61,16 +62,16 @@ namespace api.Controllers
 
         [Authorize(Roles = nameof(UserRole.Teacher))]
         [HttpDelete]
-        public async Task<IActionResult> Delete(SubjectModel newSubject)
+        public async Task<IActionResult> Delete(MaterialModel newMaterial)
         {
             try
             {
-                var validationResult = _validator.Validate(newSubject);
+                var validationResult = _validator.Validate(newMaterial);
 
                 if (!validationResult.IsValid)
                     return BadRequest(validationResult.ToString("\n"));
 
-                await _subjectService.RemoveSubjectAsync(newSubject);
+                await _materialService.RemoveMaterialAsync(newMaterial);
                 return Ok();
             }
             catch
@@ -81,19 +82,19 @@ namespace api.Controllers
 
         [Authorize(Roles = nameof(UserRole.Teacher))]
         [HttpPut]
-        public async Task<IActionResult> Put(SubjectModel newSubject)
+        public async Task<IActionResult> Put(MaterialModel newMaterial)
         {
             try
             {
-                var validationResult = _validator.Validate(newSubject);
+                var validationResult = _validator.Validate(newMaterial);
 
                 if (!validationResult.IsValid)
                     return BadRequest(validationResult.ToString("\n"));
 
-                await _subjectService.UpdateSubjectAsync(newSubject);
+                await _materialService.UpdateMaterialAsync(newMaterial);
                 return Ok();
             }
-            catch(NullReferenceException)
+            catch (NullReferenceException)
             {
                 return BadRequest();
             }
