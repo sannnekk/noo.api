@@ -56,7 +56,7 @@ namespace api.Services.Implementations
                 var material = await _unitOfWork.Materials.Get(newMaterial.Id);
 
                 if(material == null)
-                    throw new NullReferenceException();
+                    throw new NullReferenceException(nameof(material));
 
                 material.Name = newMaterial.Name;
                 material.Description = newMaterial.Description;

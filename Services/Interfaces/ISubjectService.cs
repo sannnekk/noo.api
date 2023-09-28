@@ -2,7 +2,7 @@
 
 namespace api.Services.Interfaces
 {
-    public interface ISubjectService : IModelsBaseService<SubjectModel>
+    public interface ISubjectService : IBaseModelsService<SubjectModel>
     {      
         Task<SubjectModel> GetSubjectWithMaterialsAsync(Ulid id);
       

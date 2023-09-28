@@ -2,7 +2,7 @@
 
 namespace api.Services.Interfaces
 {
-    public interface IModelsBaseService<T> where T : BaseModel
+    public interface IBaseModelsService<T> where T : BaseModel
     {
         Task<T> GetAsync(Ulid id);
 

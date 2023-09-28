@@ -2,7 +2,7 @@
 
 namespace api.Services.Interfaces
 {
-    public interface IMaterialService : IModelsBaseService<MaterialModel>
+    public interface IMaterialService : IBaseModelsService<MaterialModel>
     {       
         Task<MaterialModel> GetMaterialWithWorksAsync(Ulid id);      
     }
