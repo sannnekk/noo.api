@@ -51,7 +51,7 @@ namespace api.Controllers
                 if (!validationResult.IsValid)
                     return BadRequest(validationResult.ToString("\n"));
 
-                await _materialService.CreateMaterialAsync(newMaterial);
+                await _materialService.CreateAsync(newMaterial);
                 return Ok();
             }
             catch
@@ -71,7 +71,7 @@ namespace api.Controllers
                 if (!validationResult.IsValid)
                     return BadRequest(validationResult.ToString("\n"));
 
-                await _materialService.RemoveMaterialAsync(newMaterial);
+                await _materialService.DeleteAsync(newMaterial);
                 return Ok();
             }
             catch
@@ -91,7 +91,7 @@ namespace api.Controllers
                 if (!validationResult.IsValid)
                     return BadRequest(validationResult.ToString("\n"));
 
-                await _materialService.UpdateMaterialAsync(newMaterial);
+                await _materialService.UpdateAsync(newMaterial);
                 return Ok();
             }
             catch (NullReferenceException)

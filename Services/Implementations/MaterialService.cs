@@ -13,7 +13,7 @@ namespace api.Services.Implementations
             _unitOfWork = unitOfWork;
         }
 
-        public async Task CreateMaterialAsync(MaterialModel newMaterial)
+        public async Task CreateAsync(MaterialModel newMaterial)
         {
             using (_unitOfWork)
             {
@@ -22,7 +22,7 @@ namespace api.Services.Implementations
             }
         }
 
-        public async Task<MaterialModel?> GetMaterialAsync(Ulid id)
+        public async Task<MaterialModel?> GetAsync(Ulid id)
         {           
             using (_unitOfWork)
             {
@@ -40,7 +40,7 @@ namespace api.Services.Implementations
             }
         }
 
-        public async Task RemoveMaterialAsync(MaterialModel material)
+        public async Task DeleteAsync(MaterialModel material)
         {
             using (_unitOfWork)
             {
@@ -49,7 +49,7 @@ namespace api.Services.Implementations
             }
         }
 
-        public async Task UpdateMaterialAsync(MaterialModel newMaterial)
+        public async Task UpdateAsync(MaterialModel newMaterial)
         {
             using (_unitOfWork)
             {

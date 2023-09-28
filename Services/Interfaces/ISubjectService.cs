@@ -2,16 +2,9 @@
 
 namespace api.Services.Interfaces
 {
-    public interface ISubjectService
-    {
-        Task<SubjectModel> GetSubjectAsync(Ulid id);
-
+    public interface ISubjectService : IModelsBaseService<SubjectModel>
+    {      
         Task<SubjectModel> GetSubjectWithMaterialsAsync(Ulid id);
-
-        Task RemoveSubjectAsync(SubjectModel subject);
-
-        Task CreateSubjectAsync(SubjectModel newSubject);
-
-        Task UpdateSubjectAsync(SubjectModel newSubject);
+      
     }
 }

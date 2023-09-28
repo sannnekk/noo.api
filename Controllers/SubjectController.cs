@@ -50,7 +50,7 @@ namespace api.Controllers
                 if (!validationResult.IsValid)
                     return BadRequest(validationResult.ToString("\n"));
                                    
-                await _subjectService.CreateSubjectAsync(newSubject);
+                await _subjectService.CreateAsync(newSubject);
                 return Ok();
             }
             catch
@@ -70,7 +70,7 @@ namespace api.Controllers
                 if (!validationResult.IsValid)
                     return BadRequest(validationResult.ToString("\n"));
 
-                await _subjectService.RemoveSubjectAsync(newSubject);
+                await _subjectService.DeleteAsync(newSubject);
                 return Ok();
             }
             catch
@@ -90,7 +90,7 @@ namespace api.Controllers
                 if (!validationResult.IsValid)
                     return BadRequest(validationResult.ToString("\n"));
 
-                await _subjectService.UpdateSubjectAsync(newSubject);
+                await _subjectService.UpdateAsync(newSubject);
                 return Ok();
             }
             catch(NullReferenceException)

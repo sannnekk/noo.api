@@ -2,16 +2,8 @@
 
 namespace api.Services.Interfaces
 {
-    public interface IMaterialService
-    {
-        Task<MaterialModel> GetMaterialAsync(Ulid id);
-
-        Task<MaterialModel> GetMaterialWithWorksAsync(Ulid id);
-
-        Task RemoveMaterialAsync(MaterialModel material);
-
-        Task CreateMaterialAsync(MaterialModel newMaterial);
-
-        Task UpdateMaterialAsync(MaterialModel newMaterial);
+    public interface IMaterialService : IModelsBaseService<MaterialModel>
+    {       
+        Task<MaterialModel> GetMaterialWithWorksAsync(Ulid id);      
     }
 }
