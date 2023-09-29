@@ -21,6 +21,8 @@ namespace api.Models.DB
         [Column("content")]
         public string? Content { get; set; }
       
+        public List<WorkModel>? Works { get; set; }
+
         protected override void GenerateSlug()
         {
             // TODO: Implement MaterialModel slug
