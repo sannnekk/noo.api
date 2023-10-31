@@ -8,37 +8,53 @@ namespace api.Models.DB
     [Serializable]
     [Table("User")]
     public class UserModel : BaseModel
-    {                
-        [MaxLength(256)]
+    {
         [Column("name")]
-        public string? Name { get; set; }
-
-        [MaxLength(256)]
-        [Column("userName")]
-        public string? UserName { get; set; }
-
-        [MaxLength(128)]
-        [Column("passwordHash")]
-        public SHA256? PasswordHash { get; set; }
-
-        [MaxLength(512)]
-        [Column("google_token")]
-        public string? GoogleToken { get; set; }
-
-        [MaxLength(32)]
-        [Column("telegram_id")]
-        public string? TelegramId { get; set; } 
+        [MaxLength(256)]     
+        [Required]
+        public string Name { get; set; } = string.Empty;
 
         [Column("role")]
+        [Required]
         public UserRole UserRole { get; set; }
 
+        [Column("userName")]
+        [MaxLength(256)]
         [Required]
+        public string UserName { get; set; } = string.Empty;
+
+        [Column("userName")]
+        [MaxLength(256)]
+        [Required]
+        public string Email { get; set; } = string.Empty;
+       
+        [Column("media_id")]      
+        [Required]
+        public Ulid MediaId { get; set; }
+        public MediaModel? Media { get; set; }
+
+        [Column("telegram_id")]
+        [MaxLength(64)]
+        [Required]
+        public string TelegramId { get; set; } = string.Empty;
+
+        [Column("passwordHash")]
+        [MaxLength(256)]
+        [Required]
+        public SHA256? PasswordHash { get; set; }
+             
         [Column("is_blocked")]
+        [Required]       
         public bool isBlocked { get; set; }
 
         [Column("forbidden")]
+        [Required]
         public int Forbidden { get; set; }  
 
+        public List<CourseModel>? Courses { get; set; }
+
+        public List<AssignedWorkModel>? AssignedWorks { get; set; }
+      
         protected override void GenerateSlug()
         {
             // TODO: Implement UserModel slug

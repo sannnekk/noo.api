@@ -18,9 +18,11 @@ namespace api.Models.DB
         public string Slug { get; set; } = string.Empty;
 
         [Column("created_at")]
+        [Required]
         public DateTime CreatedAt { get; set; }
 
         [Column("updated_at")]
+        [Required]
         public DateTime UpdatedAt { get; set; }
 
         protected BaseModel()

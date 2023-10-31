@@ -3,22 +3,22 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace api.Models.DB
 {
-    [Table("Subject")]
-    public class SubjectModel : BaseModel
+    public class ChapterModel : BaseModel
     {
         [Column("name")]
         [Required]
-        [MaxLength(255)]
         public string Name { get; set; } = string.Empty;
 
-        [Column("description")]
-        public string Description { get; set; } = string.Empty;
+        [Column("course_id")]
+        [Required]
+        public Ulid CourseId { get; set; }
+        public CourseModel? Course { get; set; }
 
-        public List<MaterialModel>? Materials { get; set; }
+        public List<MaterialModel> Materials { get; set; }
 
         protected override void GenerateSlug()
         {
-            // TODO: Implement SubjectModel slug
+            // TODO: Implement ChapterModel slug
         }
     }
 }

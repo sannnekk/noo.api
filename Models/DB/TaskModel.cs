@@ -6,23 +6,40 @@ namespace api.Models.DB
 {
     public class TaskModel : BaseModel
     {
-        [Column("work_id")]
-        [Required]
-        public Ulid WorkId { get; set; }
-
         [Column("name")]
         [MaxLength(255)]
-        public string? Name { get; set; }
+        [Required]
+        public string Name { get; set; } = string.Empty;
 
         [Column("content")]
-        public string? Content { get; set; }
+        [Required]
+        public string Content { get; set; } = string.Empty;
 
         [Column("highest_score")]
+        [Required]
         public int HighestScore { get; set; }
 
         [Column("type")]
+        [Required]
         public TaskType Type { get; set; }
 
+        [Column("right_answer")]
+        [Required]
+        public string RightAnswer = string.Empty;
+
+        [Column("work_id")]
+        [Required]
+        public Ulid WorkId { get; set; }
+        public WorkModel? Work { get; set; }
+
+        public List<AnswerModel>? Answers { get; set; }
+
+        public List<TaskOptionModel>? TaskOptions { get; set; }
+
+        public List<CommentModel>? Comments { get; set; }
+
+        public List<MediaModel>? Media { get; set; }
+     
         protected override void GenerateSlug()
         {
             // TODO: Implement WorkModel slug
