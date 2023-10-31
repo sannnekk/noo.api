@@ -6,6 +6,6 @@ namespace api.Repositories.EntityRepositories.Interfaces
     {
         Task<SubjectModel> GetSubjectWithMaterials(Ulid id);
 
-        Task<IEnumerable<SubjectModel>> GetSubjectsWithMaterials(Func<SubjectModel, bool> predicate);        
+        Task<IEnumerable<SubjectModel?>> GetSubjectsWithMaterials(Func<SubjectModel, bool> predicate);
     }
 }

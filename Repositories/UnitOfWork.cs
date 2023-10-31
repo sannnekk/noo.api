@@ -37,6 +37,7 @@ public class UnitOfWork : IUnitOfWork
 
     public void Dispose()
     {
+        _context.SaveChanges();
         _context.Dispose();
     }
 }

@@ -1,6 +1,5 @@
 ﻿using api.Models.DB;
 using api.Models.Enums;
-using api.Services.Implementations;
 using api.Services.Interfaces;
 using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
@@ -9,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace api.Controllers
 {
     [ApiController]
-    [Route("noo/material")]
+    [Route("/material")]
     public class MaterialController : ControllerBase
     {
         private readonly IMaterialService _materialService;
@@ -29,7 +28,7 @@ namespace api.Controllers
             {
                 var response = await _materialService.GetMaterialWithWorksAsync(id);
 
-                if(response == null)
+                if (response == null)
                     return NotFound();
 
                 return Ok(response);

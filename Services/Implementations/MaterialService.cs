@@ -18,12 +18,11 @@ namespace api.Services.Implementations
             using (_unitOfWork)
             {
                 await _unitOfWork.Materials.Add(newMaterial);
-                _unitOfWork.Complete();
             }
         }
 
         public async Task<MaterialModel?> GetAsync(Ulid id)
-        {           
+        {
             using (_unitOfWork)
             {
                 var material = await _unitOfWork.Materials.Get(id);
@@ -31,7 +30,16 @@ namespace api.Services.Implementations
             }
         }
 
-        public async Task<MaterialModel> GetMaterialWithWorksAsync(Ulid id)
+        public async Task<IEnumerable<MaterialModel>> GetManyAsync(Func<MaterialModel, bool> predicate)
+        {
+            using (_unitOfWork)
+            {
+                var materials = await _unitOfWork.Materials.GetMany(predicate);
+                return materials;
+            }
+        }
+
+        public async Task<MaterialModel?> GetMaterialWithWorksAsync(Ulid id)
         {
             using (_unitOfWork)
             {
@@ -45,7 +53,6 @@ namespace api.Services.Implementations
             using (_unitOfWork)
             {
                 await _unitOfWork.Materials.Delete(material);
-                _unitOfWork.Complete();
             }
         }
 
@@ -55,15 +62,35 @@ namespace api.Services.Implementations
             {
                 var material = await _unitOfWork.Materials.Get(newMaterial.Id);
 
-                if(material == null)
+                if (material == null)
                     throw new NullReferenceException(nameof(material));
 
                 material.Name = newMaterial.Name;
                 material.Description = newMaterial.Description;
                 material.Content = newMaterial.Content;
                 material.UpdatedAt = DateTime.Now;
+            }
+        }
 
-                _unitOfWork.Complete();
+        public async Task<int> CountAsync()
+        {
+            using (_unitOfWork)
+            {
+                var count = await _unitOfWork.Materials.Count();
+                return count;
+            }
+        }
+
+        public async Task DeleteAsync(Ulid id)
+        {
+            using (_unitOfWork)
+            {
+                var model = await _unitOfWork.Materials.Get(id);
+
+                if (model == null)
+                    throw new NullReferenceException(nameof(model));
+
+                await _unitOfWork.Materials.Delete(model);
             }
         }
     }

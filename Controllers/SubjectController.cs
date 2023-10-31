@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace api.Controllers
 {
     [ApiController]
-    [Route("noo/subject")]
+    [Route("/subject")]
     public class SubjectController : ControllerBase
     {
         private readonly ISubjectService _subjectService;
@@ -28,15 +28,15 @@ namespace api.Controllers
             {
                 var subject = await _subjectService.GetSubjectWithMaterialsAsync(id);
 
-                if(subject == null)                
+                if (subject == null)
                     return NotFound();
-                
+
                 return Ok(subject);
             }
             catch
             {
                 return Problem();
-            }            
+            }
         }
 
         [Authorize(Roles = nameof(UserRole.Teacher))]
@@ -49,7 +49,7 @@ namespace api.Controllers
 
                 if (!validationResult.IsValid)
                     return BadRequest(validationResult.ToString("\n"));
-                                   
+
                 await _subjectService.CreateAsync(newSubject);
                 return Ok();
             }
@@ -93,7 +93,7 @@ namespace api.Controllers
                 await _subjectService.UpdateAsync(newSubject);
                 return Ok();
             }
-            catch(NullReferenceException)
+            catch (NullReferenceException)
             {
                 return BadRequest();
             }

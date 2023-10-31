@@ -13,12 +13,16 @@ namespace api.Services.Implementations
             _unitOfWork = unitOfWork;
         }
 
+        public Task<int> CountAsync()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task CreateAsync(WorkModel workModel)
         {
             using (_unitOfWork)
             {
                 await _unitOfWork.Works.Add(workModel);
-                _unitOfWork.Complete();
             }
         }
 
@@ -27,7 +31,19 @@ namespace api.Services.Implementations
             using (_unitOfWork)
             {
                 await _unitOfWork.Works.Delete(workModel);
-                _unitOfWork.Complete();
+            }
+        }
+
+        public async Task DeleteAsync(Ulid id)
+        {
+            using (_unitOfWork)
+            {
+                var work = await _unitOfWork.Works.Get(id);
+
+                if (work == null)
+                    throw new NullReferenceException(nameof(work));
+
+                await _unitOfWork.Works.Delete(work);
             }
         }
 
@@ -37,7 +53,16 @@ namespace api.Services.Implementations
             {
                 var work = await _unitOfWork.Works.Get(id);
                 return work;
-            }            
+            }
+        }
+
+        public Task<IEnumerable<WorkModel>> GetManyAsync(Func<WorkModel, bool> predicate)
+        {
+            using (_unitOfWork)
+            {
+                var works = _unitOfWork.Works.GetMany(predicate);
+                return works;
+            }
         }
 
         public async Task UpdateAsync(WorkModel newWorkModel)
@@ -51,9 +76,7 @@ namespace api.Services.Implementations
 
                 work.Description = newWorkModel.Description;
                 work.UpdatedAt = DateTime.Now;
-
-                _unitOfWork.Complete();
-            }        
+            }
         }
     }
 }

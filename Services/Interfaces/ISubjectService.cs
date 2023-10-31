@@ -2,9 +2,8 @@
 
 namespace api.Services.Interfaces
 {
-    public interface ISubjectService : IBaseModelsService<SubjectModel>
-    {      
+    public interface ISubjectService : IEntityCreateable<SubjectModel>, IEntityCountable, IEntityGettable<SubjectModel>, IEntityDeleteable<SubjectModel>, IEntityUpdateable<SubjectModel>
+    {
         Task<SubjectModel> GetSubjectWithMaterialsAsync(Ulid id);
-      
     }
 }
