@@ -4,6 +4,7 @@ using api.Models.Enums;
 
 namespace api.Models.DB
 {
+    [Table("Task")]
     public class TaskModel : BaseModel
     {
         [Column("name")]

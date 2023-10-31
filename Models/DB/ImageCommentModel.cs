@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace api.Models.DB
 {
+    [Table("ImageComment")]
     public class ImageCommentModel
     {
         [Column("id")]

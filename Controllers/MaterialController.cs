@@ -70,7 +70,7 @@ namespace api.Controllers
                 if (!validationResult.IsValid)
                     return BadRequest(validationResult.ToString("\n"));
 
-                await _materialService.DeleteAsync(newMaterial);
+                await _materialService.DeleteAsync(newMaterial.Id);
                 return Ok();
             }
             catch

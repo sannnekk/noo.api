@@ -4,6 +4,7 @@ using api.Models.Enums;
 
 namespace api.Models.DB
 {
+    [Table("Media")]
     public class MediaModel : BaseModel
     {
         [Column("url")]

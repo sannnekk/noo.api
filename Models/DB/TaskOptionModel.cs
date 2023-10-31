@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace api.Models.DB
 {
+    [Table("TaskOption")]
     public class TaskOptionModel
     {
         [Column("id")]

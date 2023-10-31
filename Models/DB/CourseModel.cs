@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace api.Models.DB
 {
+    [Table("Course")]
     public class CourseModel : BaseModel
     {
         [Column("name")]
