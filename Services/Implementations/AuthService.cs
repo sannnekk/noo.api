@@ -55,8 +55,10 @@ namespace api.Services.Implementations
 
             var claims = new[]
             {
+                new Claim(ClaimTypes.Email, model.Email),
+                new Claim(ClaimTypes.GivenName, model.UserName),
                 new Claim(ClaimTypes.Name, model.Name),
-                new Claim(ClaimTypes.Role, nameof(model.UserRole))
+                new Claim(ClaimTypes.Role, model.UserRole.ToString())
             };
 
             var token = new JwtSecurityToken

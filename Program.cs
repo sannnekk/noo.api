@@ -15,6 +15,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => {
                     options.TokenValidationParameters = new TokenValidationParameters
                     {                       
+                        ValidateAudience = false, 
+                        ValidateIssuer = false,
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,                       
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
@@ -31,6 +33,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IValidator<MaterialModel>, MaterialModelValidator>();
 builder.Services.AddScoped<IMaterialService, MaterialService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 
 builder.Services.AddControllers();
