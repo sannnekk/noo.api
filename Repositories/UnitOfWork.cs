@@ -11,8 +11,7 @@ public class UnitOfWork : IUnitOfWork
     {
         _context = context;
 
-        Materials = new MaterialRepository(_context);
-        Subjects = new SubjectRepository(_context);
+        Materials = new MaterialRepository(_context);        
         Works = new WorkRepository(_context);
         Answers = new AnswerRepository(_context);
         Comments = new CommentRepository(_context);
@@ -21,8 +20,7 @@ public class UnitOfWork : IUnitOfWork
         Users = new UserRepository(_context);
     }
 
-    public IMaterialRepository Materials { get; }
-    public ISubjectRepository Subjects { get; }
+    public IMaterialRepository Materials { get; }    
     public IWorkRepository Works { get; }
     public IAnswerRepository Answers { get; }
     public ICommentRepository Comments { get; }

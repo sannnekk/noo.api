@@ -4,8 +4,7 @@ namespace api.Repositories
 {
     public interface IUnitOfWork : IDisposable
     {
-        IMaterialRepository Materials { get; }
-        ISubjectRepository Subjects { get; }
+        IMaterialRepository Materials { get; }        
         IWorkRepository Works { get; }
         IAnswerRepository Answers { get; }
         ICommentRepository Comments { get; }

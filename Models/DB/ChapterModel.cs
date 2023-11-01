@@ -15,7 +15,7 @@ namespace api.Models.DB
         public Ulid CourseId { get; set; }
         public CourseModel? Course { get; set; }
 
-        public List<MaterialModel> Materials { get; set; }
+        public List<MaterialModel>? Materials { get; set; }
 
         protected override void GenerateSlug()
         {
