@@ -41,7 +41,7 @@ namespace api.Models.DB
         [Column("passwordHash")]
         [MaxLength(256)]
         [Required]
-        public SHA256? PasswordHash { get; set; }
+        public string PasswordHash { get; set; } = string.Empty;
              
         [Column("is_blocked")]
         [Required]       

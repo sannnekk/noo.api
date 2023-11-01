@@ -8,7 +8,7 @@ namespace api.Services.Interfaces
         /// <summary>
         /// Check whether such a user exists
         /// </summary>        
-        UserModel Authenticate(LoginModel model);
+        UserModel? Authenticate(LoginModel model);
 
         /// <summary>
         /// Save in claims all necessary information
