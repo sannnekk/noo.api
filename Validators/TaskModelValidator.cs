@@ -7,10 +7,10 @@ namespace api.Validators
     {
         public TaskModelValidator()
         {
-            RuleFor(t => t.Id).NotEmpty();
-            RuleFor(t => t.Slug).MaximumLength(384).NotEmpty();
-            RuleFor(t => t.WorkId).NotEmpty();
-            RuleFor(t => t.Name).MaximumLength(255);
+            RuleFor(t => t.Id).NotEmpty();                  
+            RuleFor(t => t.Name).MaximumLength(255).NotEmpty();
+            RuleFor(t => t.RightAnswer).MaximumLength(255).NotEmpty();
+            
         }
     }
 }

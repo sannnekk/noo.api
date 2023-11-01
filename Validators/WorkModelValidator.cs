@@ -7,10 +7,8 @@ namespace api.Validators
     {
         public WorkModelValidator()
         {
-            RuleFor(w => w.Id).NotEmpty();
-            RuleFor(w => w.Slug).MaximumLength(384).NotEmpty();
-            RuleFor(w => w.MaterialId).NotEmpty();
-            RuleFor(w => w.Name).MaximumLength(255);
+            RuleFor(w => w.Id).NotEmpty();               
+            RuleFor(w => w.Name).MaximumLength(255).NotEmpty();
         }
     }
 }

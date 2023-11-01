@@ -29,7 +29,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(connection, new MySqlServerVersion(new Version(8, 0, 25))));
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<IValidator<SubjectModel>, SubjectModelValidator>();
 builder.Services.AddScoped<IValidator<MaterialModel>, MaterialModelValidator>();
 builder.Services.AddScoped<IMaterialService, MaterialService>();
 

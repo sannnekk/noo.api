@@ -8,7 +8,7 @@ namespace api.Validators
         public CommentModelValidator()
         {
             RuleFor(c => c.Id).NotEmpty();
-            RuleFor(c => c.Slug).MaximumLength(384).NotEmpty();
+            RuleFor(c => c.Slug).MaximumLength(512).NotEmpty();
             RuleFor(c => c.Score).GreaterThan(0);
         }
     }

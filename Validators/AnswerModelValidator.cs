@@ -7,8 +7,8 @@ namespace api.Validators
     {
         AnswerModelValidator()
         {
-            RuleFor(a => a.Id).NotEmpty();
-            RuleFor(a => a.Slug).MaximumLength(384).NotEmpty();
+            RuleFor(a => a.Id).NotEmpty();           
+            RuleFor(a => a.Word).MaximumLength(512).NotEmpty();
         }
     }
 }

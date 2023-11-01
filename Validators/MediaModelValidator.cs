@@ -8,7 +8,7 @@ namespace api.Validators
         public MediaModelValidator()
         {
             RuleFor(u => u.Id).NotEmpty();
-            RuleFor(u => u.Slug).MaximumLength(384).NotEmpty();
+            RuleFor(u => u.Url).MaximumLength(255).NotEmpty();
         }
     }
 }
