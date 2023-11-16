@@ -1,46 +1,40 @@
 using System.Security.Claims;
+using AutoDependencyRegistration.Attributes;
+using noo.api.Core.DataAbstraction.Exceptions;
 using noo.api.Core.Security.Permissions;
 
 namespace noo.api.Core.Request;
 
-public struct RequestContext
+[RegisterClassAsScoped]
+public class RequestContext : IRequestContext
 {
     public string? UserId { get; private set; }
     public string? UserRole { get; private set; }
     public bool IsBlocked { get; private set; }
-    public readonly PermissionResolver PermissionResolver { get; }
+    public PermissionResolver PermissionResolver { get; private set; }
 
-    public RequestContext(string? userId, string? userRole, bool isBlocked, int permissions)
+    public RequestContext()
     {
-        UserId = userId;
-        UserRole = userRole;
-        IsBlocked = isBlocked;
-        PermissionResolver = new PermissionResolver(permissions);
+        PermissionResolver = new PermissionResolver(0);
     }
 
-    public static RequestContext Empty()
+    public void ApplyClaims(IEnumerable<Claim> claims)
     {
-        return new RequestContext(null, null, false, 0);
-    }
+        var claimsList = claims.ToList();
 
-    public static RequestContext FromClaims(IEnumerable<Claim> claims)
-    {
-        var userId = claims.FirstOrDefault(c => c.Type == "user_id")?.Value;
-        var userRole = claims.FirstOrDefault(c => c.Type == "user_role")?.Value;
-        var isBlocked = bool.Parse(claims.FirstOrDefault(c => c.Type == "is_blocked")?.Value ?? "false");
-        var permissions = int.Parse(claims.FirstOrDefault(c => c.Type == "permissions")?.Value ?? "0");
-
-        return new RequestContext(userId, userRole, isBlocked, permissions);
-    }
-
-    public Dictionary<string, string> ToDictionary()
-    {
-        return new()
+        try
         {
-            { "user_id", UserId ?? "" },
-            { "user_role", UserRole ?? "" },
-            { "is_blocked", IsBlocked.ToString() },
-            { "permissions", PermissionResolver.Permissions.ToString() }
-        };
+            UserId = claimsList.FirstOrDefault(c => c.Type == "user_id")?.Value;
+            UserRole = claimsList.FirstOrDefault(c => c.Type == "user_role")?.Value;
+            IsBlocked = bool.Parse(claimsList.FirstOrDefault(c => c.Type == "is_blocked")?.Value ?? "false");
+            PermissionResolver.BuildPermissions(
+                Int32.Parse(claimsList.FirstOrDefault(c => c.Type == "permissions")?.Value ?? "0")
+            );
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw new UnknownException("Error applying claims: " + e.Message);
+        }
     }
 }

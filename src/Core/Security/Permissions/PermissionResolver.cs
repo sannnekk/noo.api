@@ -2,7 +2,7 @@ namespace noo.api.Core.Security.Permissions;
 
 public class PermissionResolver
 {
-    public int Permissions { get; }
+    public int Permissions { get; private set; }
 
     public PermissionResolver(int permissions)
     {
@@ -14,33 +14,16 @@ public class PermissionResolver
         return (Permissions & (int)permission) != 0;
     }
 
-    public Dictionary<Permissions, bool> ParsePermissions()
+    public void BuildPermissions(int permissions)
     {
-        var result = new Dictionary<Permissions, bool>();
-
-        foreach (Permissions permission in Enum.GetValues(typeof(Permissions)))
-        {
-            result.Add(permission, HasPermission(permission));
-        }
-
-        return result;
+        this.Permissions = permissions;
     }
 
-    public static int BuildPermissions(Dictionary<Permissions, bool> permissions)
+    public void BuildPermissions(IEnumerable<Permissions> permissions)
     {
-        var result = 0;
         foreach (var permission in permissions)
         {
-            if (permission.Value)
-            {
-                result |= (int)permission.Key;
-            }
-            else
-            {
-                result &= ~(int)permission.Key;
-            }
+            this.Permissions |= (int)permission;
         }
-
-        return result;
     }
 }

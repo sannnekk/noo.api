@@ -9,4 +9,29 @@ public struct Pagination
 
     public Pagination() { }
 
+    public Pagination(int page, int pageSize, string? sort, bool isDescending = false)
+    {
+        Page = page;
+        PageSize = pageSize;
+        Sort = sort;
+        IsDescending = isDescending;
+    }
+
+    public IQueryable<Model> Apply<Model>(IQueryable<Model> query)
+    {
+        var offset = (Page - 1) * PageSize;
+
+        if (Sort != null)
+        {
+            var property = typeof(Model).GetProperty(Sort);
+            if (property != null)
+            {
+                query = IsDescending
+                    ? query.OrderByDescending(model => property.GetValue(model))
+                    : query.OrderBy(model => property.GetValue(model));
+            }
+        }
+
+        return query.Skip(offset).Take(PageSize);
+    }
 }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using noo.api.Core.DataAbstraction;
+using noo.api.Core.Request;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +15,6 @@ builder
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateAudience = false,
             ValidateIssuer = false,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
@@ -39,12 +39,22 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    Console.WriteLine("Development environment");
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+else
+{
+    Console.WriteLine("Production environment");
+    app.UseHttpsRedirection();
+}
+
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseCors();
+
+app.UseAddContextMiddleware();
 app.MapControllers();
 
 app.Run();

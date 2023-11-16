@@ -1,0 +1,8 @@
+namespace noo.api.Core.DataAbstraction.Exceptions;
+
+public class NotFoundException : Exception
+{
+    public NotFoundException(string message) : base(message)
+    {
+    }
+}
