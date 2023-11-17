@@ -25,4 +25,8 @@
     <PackageReference Include="Ulid" Version="1.3.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="src\User\Aggregations\" />
+  </ItemGroup>
+
 </Project>
