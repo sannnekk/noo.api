@@ -55,6 +55,18 @@ namespace noo.api.User.Services
             }
         }
 
+        public async Task<UserModel?> GetUserForLoginAsync(string usernameOrEmail, string password)
+        {
+            try
+            {
+                return await _userRepository.GetForLoginAsync(usernameOrEmail, password);
+            }
+            catch(Exception e)
+            {
+                throw new UnknownException("Error getting user: " + e.Message);
+            }
+        }
+
         public async Task<IEnumerable<UserModel>> GetAsync()
         {
             try

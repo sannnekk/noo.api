@@ -12,6 +12,8 @@ namespace noo.api.User.Services
 
         Task<UserModel?> GetAsync(Ulid id);
 
+        Task<UserModel?> GetUserForLoginAsync(string usernameOrEmail, string password);
+
         Task<IEnumerable<UserModel>> GetAsync();
     }
 }
