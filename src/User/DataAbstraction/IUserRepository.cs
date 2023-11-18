@@ -4,6 +4,8 @@ namespace noo.api.User.DataAbstraction
 {
     public interface IUserRepository : IBaseRepository<UserModel>
     {
-        Task<UserModel> GetForLoginAsync(string usernameOrEmail, string password);
+        Task<UserModel> GetForLoginAsync(string usernameOrEmail, byte[] password);
+
+        Task<UserModel> GetByUsernameOrEmail(string username, string email);
     }
 }

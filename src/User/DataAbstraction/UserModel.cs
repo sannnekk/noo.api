@@ -1,6 +1,8 @@
-﻿using noo.api.Core.DataAbstraction;
+﻿using Microsoft.EntityFrameworkCore.Diagnostics;
+using noo.api.Core.DataAbstraction;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Cryptography;
 using System.Text.Json.Serialization;
 
 namespace noo.api.User.DataAbstraction
@@ -47,7 +49,7 @@ namespace noo.api.User.DataAbstraction
         [MaxLength(256)]
         [Required]
         [JsonPropertyName("password_hash")]
-        public string PasswordHash { get; set; } = string.Empty;
+        public byte[]? PasswordHash { get; set; }
 
         [Column("is_blocked")]
         [JsonPropertyName("is_blocked")]

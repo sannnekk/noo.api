@@ -16,6 +16,5 @@ namespace noo.api.Auth.Services
         /// </summary>      
         /// <returns>JWT token as a string</returns>
         string GenerateJWTToken(UserModel model);      
-
-        Task RegisterAsync(CreateUserModelDTO userModel);    }
+    }
 }

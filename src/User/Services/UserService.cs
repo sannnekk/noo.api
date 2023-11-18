@@ -1,6 +1,8 @@
 ﻿using AutoDependencyRegistration.Attributes;
 using noo.api.Core.DataAbstraction.Exceptions;
 using noo.api.User.DataAbstraction;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace noo.api.User.Services
 {
@@ -14,16 +16,40 @@ namespace noo.api.User.Services
             _userRepository = userRepository;
         }
 
-        public async Task CreateAsync(UserModel model)
+        public async Task CreateAsync(CreateUserModelDTO modelDTO)
         {
             try
             {
-                await _userRepository.CreateAsync(model);
+                if (GetByUsernameOrEmail(modelDTO.Username, modelDTO.Email) != null)
+                    throw new AlreadyExistsException("User with such Username or email already exist!");
+
+                var newUser = new UserModel
+                {
+                    Id = Ulid.NewUlid(),
+                    Slug = GenerateSlug(),
+                    Username = modelDTO.Username,
+                    Email = modelDTO.Email,
+                    PasswordHash = EncryptPassword(modelDTO.Password)
+                };
+
+                await _userRepository.CreateAsync(newUser);
             }
             catch (Exception e)
             {
                 throw new UnknownException("Error creating user: " + e.Message);
             }
+        }
+
+        public byte[] EncryptPassword(string password)
+        {
+            SHA256 sha256 = SHA256.Create();                        
+            return sha256.ComputeHash(Encoding.UTF8.GetBytes(password));            
+        }
+
+        private string GenerateSlug()
+        {
+            //TODO: Implement GenerateSlug method in UserService
+            return string.Empty;
         }
 
         public async Task DeleteAsync(Ulid id)
@@ -55,7 +81,7 @@ namespace noo.api.User.Services
             }
         }
 
-        public async Task<UserModel?> GetUserForLoginAsync(string usernameOrEmail, string password)
+        public async Task<UserModel?> GetUserForLoginAsync(string usernameOrEmail, byte[] password)
         {
             try
             {
@@ -88,6 +114,18 @@ namespace noo.api.User.Services
             catch (Exception e)
             {
                 throw new UnknownException("Error updating user: " + e.Message);
+            }
+        }
+
+        public async Task<UserModel?> GetByUsernameOrEmail(string username, string email)
+        {
+            try
+            {
+                return await _userRepository.GetByUsernameOrEmail(username, email);               
+            }
+            catch(Exception e)
+            {
+                throw new UnknownException("Error getting user: " + e.Message);
             }
         }
     }

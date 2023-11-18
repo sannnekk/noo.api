@@ -4,7 +4,7 @@ namespace noo.api.User.Services
 {
     public interface IUserService
     {
-        Task CreateAsync(UserModel model);
+        Task CreateAsync(CreateUserModelDTO modelDTO);
 
         Task UpdateAsync(UserModel model);
 
@@ -12,7 +12,11 @@ namespace noo.api.User.Services
 
         Task<UserModel?> GetAsync(Ulid id);
 
-        Task<UserModel?> GetUserForLoginAsync(string usernameOrEmail, string password);
+        Task<UserModel?> GetUserForLoginAsync(string usernameOrEmail, byte[] password);
+
+        Task<UserModel?> GetByUsernameOrEmail(string username, string email);
+
+        byte[] EncryptPassword(string password);
 
         Task<IEnumerable<UserModel>> GetAsync();
     }

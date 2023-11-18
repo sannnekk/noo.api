@@ -13,14 +13,16 @@ namespace noo.api.User
     public class UserController : ControllerBase
     {
         private readonly Core.Log.ILogger _logger;
-        private readonly IValidator<UserModel> _validator;
+        private readonly IValidator<UserModel> _userValidator;
+        private readonly IValidator<CreateUserModelDTO> _createUserValidator;
         private readonly IUserService _userService;
 
-        public UserController(Core.Log.ILogger logger, IValidator<UserModel> validator, IUserService userService)
+        public UserController(Core.Log.ILogger logger, IValidator<UserModel> validator, IUserService userService, IValidator<CreateUserModelDTO> createUserValidator)
         {
             _logger = logger;
-            _validator = validator;
+            _userValidator = validator;
             _userService = userService;
+            _createUserValidator = createUserValidator;
         }
 
         [HttpGet("{id}")]
@@ -38,7 +40,7 @@ namespace noo.api.User
             catch (UnknownException ex)
             {
                 _logger.Log(ex.Message);
-                return new ObjectResult(HttpStatusCode.InternalServerError);
+                return new BadRequestObjectResult("InternalServerError");
             }
         }
 
@@ -57,7 +59,7 @@ namespace noo.api.User
             catch(UnknownException ex)
             {
                 _logger.Log(ex.Message);
-               return new ObjectResult(HttpStatusCode.InternalServerError);
+                return new BadRequestObjectResult("InternalServerError");
             }
         }
 
@@ -66,13 +68,18 @@ namespace noo.api.User
         {
             try
             {
+                var validationResult = _userValidator.Validate(userModel);
+
+                if(!validationResult.IsValid)
+                    return BadRequest(validationResult.ToString("\n"));
+
                 await _userService.UpdateAsync(userModel);
                 return Ok();
             }
             catch(UnknownException ex)
             {
                 _logger.Log(ex.Message);
-                return new ObjectResult(HttpStatusCode.InternalServerError);
+                return new BadRequestObjectResult("InternalServerError");
             }
         }
 
@@ -92,7 +99,27 @@ namespace noo.api.User
             catch(UnknownException ex)
             {
                 _logger.Log(ex.Message);
-                return new ObjectResult(HttpStatusCode.InternalServerError);
+                return new BadRequestObjectResult("InternalServerError");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateUser(CreateUserModelDTO userDTO)
+        {
+            try
+            {
+                var validationResult = _createUserValidator.Validate(userDTO);
+
+                if (!validationResult.IsValid)
+                    return BadRequest(validationResult.ToString("\n"));
+
+                await _userService.CreateAsync(userDTO);
+                return Ok();
+            }
+            catch (UnknownException ex)
+            {
+                _logger.Log(ex.Message);
+                return new BadRequestObjectResult("InternalServerError");
             }
         }
     }

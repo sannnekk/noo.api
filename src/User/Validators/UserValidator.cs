@@ -3,7 +3,7 @@ using FluentValidation;
 using noo.api.Core.Request;
 using noo.api.User.DataAbstraction;
 
-namespace noo.api.User
+namespace api.src.User.Validators
 {
     [RegisterClassAsScoped]
     public class UserValidator : BaseRequestValidator<UserModel>
@@ -13,9 +13,9 @@ namespace noo.api.User
             RuleFor(e => e.Name).MaximumLength(256);
             RuleFor(e => e.Slug).MaximumLength(512);
             RuleFor(e => e.Username).MaximumLength(32).NotEmpty();
-            RuleFor(e => e.Email).MaximumLength(256).NotEmpty();
+            RuleFor(e => e.Email).EmailAddress().NotEmpty();
             RuleFor(e => e.TelegramId).MaximumLength(64);
-            RuleFor(e => e.PasswordHash).MaximumLength(256).NotEmpty();
+            RuleFor(e => e.PasswordHash).NotEmpty();
         }
     }
 }

@@ -9,7 +9,14 @@ namespace noo.api.User.DataAbstraction
     {
         public UserRepository(DataContext dataContext) : base(dataContext) { }
 
-        public async Task<UserModel?> GetForLoginAsync(string usernameOrEmail, string password)
+        public async Task<UserModel?> GetByUsernameOrEmail(string username, string email)
+        {
+            return await context
+                .Set<UserModel>()
+                .FirstOrDefaultAsync(e => e.Username == username || e.Email == email);
+        }
+
+        public async Task<UserModel?> GetForLoginAsync(string usernameOrEmail, byte[] password)
         {
             return await context
                 .Set<UserModel>()

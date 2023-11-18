@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace noo.api.Auth.DataAbstraction
+namespace noo.api.User.DataAbstraction
 {
     [Serializable]
     public class CreateUserModelDTO
