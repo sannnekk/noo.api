@@ -27,11 +27,11 @@ public class WorkModel : BaseModelDefinition
     public string? Description { get; set; }
 
     [Column("deadline")]
-    [Required]
     [JsonPropertyName("deadline")]
-    public DateTime Deadline { get; set; }
+    public DateTime? Deadline { get; set; } = null!;
 
     [JsonPropertyName("tasks")]
+    [ForeignKey("work_id")]
     public List<WorkTaskModel> Tasks { get; set; } = new(); 
 }
 

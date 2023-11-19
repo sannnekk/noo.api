@@ -5,6 +5,7 @@ using noo.api.Work.DataAbstraction;
 using noo.api.Work.Services;
 using noo.api.Core.Request;
 using noo.api.Core.Security.Permissions;
+using FluentValidation;
 
 namespace noo.api.Work;
 
@@ -30,13 +31,11 @@ public class WorkController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateWork(WorkModel work)
     {
-        var validated = this.validator.Validate(work);
-        this.requestContext.PermissionResolver.HasPermission(Permissions.CreateWorks);
 
         try
         {
-            if (!validated.IsValid)
-                return BadRequest(validated.Errors);
+            this.validator.ValidateAndThrow(work);
+            this.requestContext.PermissionResolver.HasPermission(Permissions.CreateWorks);
             await this.workService.CreateAsync(work);
             return Ok();
         }
@@ -51,13 +50,11 @@ public class WorkController : ControllerBase
     [HttpPut]
     public async Task<IActionResult> UpdateWork(WorkModel work)
     {
-        var validated = this.validator.Validate(work);
-        this.requestContext.PermissionResolver.HasPermission(Permissions.CreateWorks);
 
         try
         {
-            if (!validated.IsValid)
-                return BadRequest(validated.Errors);
+            this.validator.ValidateAndThrow(work);
+            this.requestContext.PermissionResolver.HasPermission(Permissions.CreateWorks);
             
             await this.workService.UpdateAsync(work);
             return Ok();
@@ -73,9 +70,9 @@ public class WorkController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteWork(Ulid id)
     {
-        this.requestContext.PermissionResolver.HasPermission(Permissions.CreateWorks);
         try
         {
+            this.requestContext.PermissionResolver.HasPermission(Permissions.CreateWorks);
             await this.workService.DeleteAsync(id);
             return Ok();
         }
@@ -90,9 +87,9 @@ public class WorkController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetWork(Ulid id)
     {
-        this.requestContext.PermissionResolver.HasPermission(Permissions.SolveWorks); // ? Get work for teacher??
         try
         {
+            this.requestContext.PermissionResolver.HasPermission(Permissions.SolveWorks); // ? Get work for teacher??
             var work = await this.workService.GetAsync(id);
             return Ok(work);
         }
@@ -107,9 +104,9 @@ public class WorkController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetWorks()
     {
-        this.requestContext.PermissionResolver.HasPermission(Permissions.SolveWorks); // ? Get work for teacher??
         try
         {
+            this.requestContext.PermissionResolver.HasPermission(Permissions.SolveWorks); // ? Get work for teacher??
             var works = await this.workService.GetAsync();
             return Ok(works);
         }
