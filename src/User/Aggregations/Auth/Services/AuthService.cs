@@ -1,7 +1,7 @@
 ﻿using AutoDependencyRegistration.Attributes;
 using Microsoft.IdentityModel.Tokens;
 using noo.api.Auth.DataAbstraction;
-using noo.api.Auth.Exceptions;
+using noo.api.Auth.DataAbstraction.Exceptions;
 using noo.api.Core.DataAbstraction.Exceptions;
 using noo.api.User.DataAbstraction;
 using noo.api.User.Services;

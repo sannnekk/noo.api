@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using noo.api.Core.DataAbstraction.Exceptions;
@@ -25,6 +26,7 @@ namespace noo.api.User
             _createUserValidator = createUserValidator;
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(Ulid id)
         {
@@ -44,16 +46,14 @@ namespace noo.api.User
             }
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAllUsers()
         {
             try
             {
                 var users = await _userService.GetAsync();
-
-                if(users == null)
-                    return Ok(new List<UserModel>());
-
+                
                 return Ok(users);
             }
             catch(UnknownException ex)
@@ -63,6 +63,7 @@ namespace noo.api.User
             }
         }
 
+        [Authorize]
         [HttpPut]
         public async Task<IActionResult> UpdateUser(UserModel userModel)
         {
@@ -83,7 +84,8 @@ namespace noo.api.User
             }
         }
 
-        [HttpDelete]
+        [Authorize]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(Ulid id)
         {
             try
@@ -103,6 +105,7 @@ namespace noo.api.User
             }
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateUser(CreateUserModelDTO userDTO)
         {

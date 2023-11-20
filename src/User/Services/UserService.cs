@@ -1,6 +1,7 @@
 ﻿using AutoDependencyRegistration.Attributes;
 using noo.api.Core.DataAbstraction.Exceptions;
 using noo.api.User.DataAbstraction;
+using noo.api.User.DataAbstraction.Exceptions;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -9,11 +10,13 @@ namespace noo.api.User.Services
     [RegisterClassAsScoped]
     public class UserService : IUserService
     {
-        private readonly IUserRepository _userRepository;        
+        private readonly IUserRepository _userRepository;   
+        private readonly IConfiguration _config;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IConfiguration configuration)
         {
             _userRepository = userRepository;
+            _config = configuration;
         }
 
         public async Task CreateAsync(CreateUserModelDTO modelDTO)
@@ -29,7 +32,9 @@ namespace noo.api.User.Services
                     Slug = GenerateSlug(),
                     Username = modelDTO.Username,
                     Email = modelDTO.Email,
-                    PasswordHash = EncryptPassword(modelDTO.Password)
+                    PasswordHash = EncryptPassword(modelDTO.Password),
+                    Role = UserRole.Student,
+                    Forbidden = 0
                 };
 
                 await _userRepository.CreateAsync(newUser);
@@ -42,8 +47,13 @@ namespace noo.api.User.Services
 
         public byte[] EncryptPassword(string password)
         {
-            SHA256 sha256 = SHA256.Create();                        
-            return sha256.ComputeHash(Encoding.UTF8.GetBytes(password));            
+            string salt = _config["Security:Salt"]!;
+
+            if (String.IsNullOrWhiteSpace(salt))
+                throw new SecuritySaltMissingException("Salt is not set in appsettings.json");
+     
+            SHA512 sha512 = SHA512.Create();
+            return sha512.ComputeHash(Encoding.UTF8.GetBytes(password + salt));
         }
 
         private string GenerateSlug()
@@ -97,7 +107,7 @@ namespace noo.api.User.Services
         {
             try
             {
-                return await _userRepository.GetManyAsync();
+                return await _userRepository.GetManyAsync() ?? new List<UserModel>();
             }
             catch (Exception e)
             {

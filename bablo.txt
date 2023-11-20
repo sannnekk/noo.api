@@ -7,3 +7,4 @@ Backend:
 5. Создание пробных сервисов и репозиториев / Task1 / Max, Task1 / Me
 6. Настройка дата контекста / Task1 / Max
 7. Core Module / Task2 / Me
+8. User Module / Task3 / Max
