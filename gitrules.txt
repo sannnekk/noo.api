@@ -1,0 +1,13 @@
+Commit rules:
+
+[TYPE] <Header>: <Subheader?>
+
+Types:
+
+REFC / Refactoring
+IMPR / Improvement
+CRTD / Created
+BFIX / Bugfix
+CNFG / Config change
+ITRL / Internal
+
