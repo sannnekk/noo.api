@@ -6,5 +6,6 @@ Backend:
 4. Авторизация / Task3 / Max
 5. Создание пробных сервисов и репозиториев / Task1 / Max, Task1 / Alex
 6. Настройка дата контекста / Task1 / Max
-7. Core Module / Task2 / Alex
-8. Work Module / Task2 / Vovan
+8. User Module / Task3 / Max
+7. Core Module / Task3 / Alex
+8. Work Module / Task3 / Vovan
