@@ -1,9 +1,10 @@
 Backend:
 
-1. БД / Task3 / Me
+1. БД / Task3 / Alex
 2. Создание моделей / Task2 / Max
-3. Создание структуры / Task2 / Me
+3. Создание структуры / Task2 / Alex
 4. Авторизация / Task3 / Max
-5. Создание пробных сервисов и репозиториев / Task1 / Max, Task1 / Me
+5. Создание пробных сервисов и репозиториев / Task1 / Max, Task1 / Alex
 6. Настройка дата контекста / Task1 / Max
-7. Core Module / Task2 / Me
+7. Core Module / Task2 / Alex
+8. Work Module / Task2 / Vovan
