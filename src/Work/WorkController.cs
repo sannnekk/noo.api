@@ -10,7 +10,7 @@ using FluentValidation;
 namespace noo.api.Work;
 
 [ApiController]
-[Route("course")]
+[Route("work")]
 public class WorkController : ControllerBase
 {
     private readonly Core.Log.ILogger logger;
@@ -89,7 +89,7 @@ public class WorkController : ControllerBase
     {
         try
         {
-            this.requestContext.PermissionResolver.HasPermission(Permissions.SolveWorks); // ? Get work for teacher??
+            this.requestContext.PermissionResolver.HasPermission(Permissions.SolveWorks);
             var work = await this.workService.GetAsync(id);
             return Ok(work);
         }
@@ -106,7 +106,7 @@ public class WorkController : ControllerBase
     {
         try
         {
-            this.requestContext.PermissionResolver.HasPermission(Permissions.SolveWorks); // ? Get work for teacher??
+            this.requestContext.PermissionResolver.HasPermission(Permissions.SolveWorks);
             var works = await this.workService.GetAsync();
             return Ok(works);
         }
