@@ -1,41 +1,41 @@
 using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using noo.api.Work.Aggregations.WorkTask.DataAbstraction;
-using noo.api.Work.Aggregations.WorkTask.Services;
+using noo.api.Work.Aggregations.AssignedWork.DataAbstraction;
+using noo.api.Work.Aggregations.AssignedWork.Services;
 using noo.api.Core.Request;
 using noo.api.Core.Security.Permissions;
 using FluentValidation;
 
-namespace noo.api.Work.Aggregations.WorkTask;
+namespace noo.api.Work.Aggregations.AssignedWork;
 
 [ApiController]
-[Route("work/work_task")]
-public class WorkTaskController : ControllerBase
+[Route("/work/assigned-work")]
+public class AssignedWorkController : ControllerBase
 {
     private readonly Core.Log.ILogger logger;
-    private readonly WorkTaskValidator validator;
-    private readonly IWorkTaskService workTaskService;
+    private readonly AssignedWorkValidator validator;
+    private readonly IAssignedWorkService assignedWorkService;
 
     private readonly IRequestContext requestContext;
 
-    public WorkTaskController(Core.Log.ILogger logger, WorkTaskValidator validator, IWorkTaskService workTaskService, IRequestContext requestContext)
+    public AssignedWorkController(Core.Log.ILogger logger, AssignedWorkValidator validator, IAssignedWorkService assignedWorkService, IRequestContext requestContext)
     {
         this.logger = logger;
         this.validator = validator;
-        this.workTaskService = workTaskService;
+        this.assignedWorkService = assignedWorkService;
         this.requestContext = requestContext;
     }
 
     [Authorize]
     [HttpPost]    
-    public async Task<IActionResult> CreateWorkTask(WorkTaskModel workTask)
+    public async Task<IActionResult> CreateAssignedWork(AssignedWorkModel assignedWork)
     {
         try
         {
-            this.validator.ValidateAndThrow(workTask);
+            this.validator.ValidateAndThrow(assignedWork);
             this.requestContext.PermissionResolver.HasPermission(Permissions.CreateWorks);
-            await this.workTaskService.CreateAsync(workTask);
+            await this.assignedWorkService.CreateAsync(assignedWork);
             return Ok();
         }
         catch (Exception e)
@@ -47,13 +47,13 @@ public class WorkTaskController : ControllerBase
 
     [Authorize]
     [HttpPut]    
-    public async Task<IActionResult> UpdateWorkTask(WorkTaskModel workTask)
+    public async Task<IActionResult> UpdateAssignedWork(AssignedWorkModel assignedWork)
     {
         try
         {
-            this.validator.ValidateAndThrow(workTask);
+            this.validator.ValidateAndThrow(assignedWork);
             this.requestContext.PermissionResolver.HasPermission(Permissions.CreateWorks);
-            await this.workTaskService.UpdateAsync(workTask);
+            await this.assignedWorkService.UpdateAsync(assignedWork);
             return Ok();
         }
         catch (Exception e)
@@ -65,12 +65,12 @@ public class WorkTaskController : ControllerBase
 
     [Authorize]
     [HttpDelete]    
-    public async Task<IActionResult> DeleteWorkTask(Ulid id)
+    public async Task<IActionResult> DeleteAssignedWork(Ulid id)
     {
         try
         {
             this.requestContext.PermissionResolver.HasPermission(Permissions.CreateWorks);
-            await this.workTaskService.DeleteAsync(id);
+            await this.assignedWorkService.DeleteAsync(id);
             return Ok();
         }
         catch (Exception e)
@@ -82,13 +82,13 @@ public class WorkTaskController : ControllerBase
 
     [Authorize]
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetWorkTask(Ulid id)
+    public async Task<IActionResult> GetAssignedWork(Ulid id)
     {
         try
         {
             this.requestContext.PermissionResolver.HasPermission(Permissions.SolveWorks);
-            var workTask = await this.workTaskService.GetAsync(id);
-            return Ok(workTask);
+            var assignedWork = await this.assignedWorkService.GetAsync(id);
+            return Ok(assignedWork);
         }
         catch (Exception e)
         {
@@ -99,13 +99,13 @@ public class WorkTaskController : ControllerBase
 
     [Authorize]
     [HttpGet]
-    public async Task<IActionResult> GetWorkTasks()
+    public async Task<IActionResult> GetAssignedWorks()
     {
         try
         {
             this.requestContext.PermissionResolver.HasPermission(Permissions.SolveWorks);
-            var workTasks = await this.workTaskService.GetAsync();
-            return Ok(workTasks);
+            var assignedWorks = await this.assignedWorkService.GetAsync();
+            return Ok(assignedWorks);
         }
         catch (Exception e)
         {
