@@ -86,7 +86,7 @@ public class WorkTaskController : ControllerBase
     {
         try
         {
-            this.requestContext.PermissionResolver.HasPermission(Permissions.SolveWorks);
+            //this.requestContext.PermissionResolver.HasPermission(Permissions.SolveWorks);
             var workTask = await this.workTaskService.GetAsync(id);
             return Ok(workTask);
         }
@@ -103,7 +103,7 @@ public class WorkTaskController : ControllerBase
     {
         try
         {
-            this.requestContext.PermissionResolver.HasPermission(Permissions.SolveWorks);
+            // this.requestContext.PermissionResolver.HasPermission(Permissions.SolveWorks);
             var workTasks = await this.workTaskService.GetAsync();
             return Ok(workTasks);
         }

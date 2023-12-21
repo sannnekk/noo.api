@@ -52,7 +52,7 @@ public class AssignedWorkController : ControllerBase
         try
         {
             this.validator.ValidateAndThrow(assignedWork);
-            this.requestContext.PermissionResolver.HasPermission(Permissions.CreateWorks);
+            this.requestContext.PermissionResolver.HasPermission(Permissions.CheckWorks);
             await this.assignedWorkService.UpdateAsync(assignedWork);
             return Ok();
         }
@@ -86,7 +86,7 @@ public class AssignedWorkController : ControllerBase
     {
         try
         {
-            this.requestContext.PermissionResolver.HasPermission(Permissions.SolveWorks);
+            // this.requestContext.PermissionResolver.HasPermission(Permissions.SolveWorks);
             var assignedWork = await this.assignedWorkService.GetAsync(id);
             return Ok(assignedWork);
         }
@@ -103,7 +103,7 @@ public class AssignedWorkController : ControllerBase
     {
         try
         {
-            this.requestContext.PermissionResolver.HasPermission(Permissions.SolveWorks);
+            // this.requestContext.PermissionResolver.HasPermission(Permissions.SolveWorks);
             var assignedWorks = await this.assignedWorkService.GetAsync();
             return Ok(assignedWorks);
         }

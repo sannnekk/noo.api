@@ -89,7 +89,7 @@ public class WorkController : ControllerBase
     {
         try
         {
-            this.requestContext.PermissionResolver.HasPermission(Permissions.SolveWorks);
+            // this.requestContext.PermissionResolver.HasPermission(Permissions.SolveWorks);
             var work = await this.workService.GetAsync(id);
             return Ok(work);
         }
@@ -106,7 +106,7 @@ public class WorkController : ControllerBase
     {
         try
         {
-            this.requestContext.PermissionResolver.HasPermission(Permissions.SolveWorks);
+            // this.requestContext.PermissionResolver.HasPermission(Permissions.SolveWorks);
             var works = await this.workService.GetAsync();
             return Ok(works);
         }

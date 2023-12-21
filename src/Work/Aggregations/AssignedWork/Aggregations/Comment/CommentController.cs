@@ -86,7 +86,7 @@ public class CommentController : ControllerBase
     {
         try
         {
-            this.requestContext.PermissionResolver.HasPermission(Permissions.SolveWorks);
+            // this.requestContext.PermissionResolver.HasPermission(Permissions.SolveWorks);
             var comment = await this.commentService.GetAsync(id);
             return Ok(comment);
         }
@@ -103,7 +103,7 @@ public class CommentController : ControllerBase
     {
         try
         {
-            this.requestContext.PermissionResolver.HasPermission(Permissions.SolveWorks);
+            // this.requestContext.PermissionResolver.HasPermission(Permissions.SolveWorks);   
             var comments = await this.commentService.GetAsync();
             return Ok(comments);
         }

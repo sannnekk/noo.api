@@ -86,7 +86,7 @@ public class AnswerController : ControllerBase
     {
         try
         {
-            this.requestContext.PermissionResolver.HasPermission(Permissions.SolveWorks);
+            // requestContext.PermissionResolver.HasPermission(Permissions.SolveWorks);        // TODO: Add permission to check works
             var answer = await this.answerService.GetAsync(id);
             return Ok(answer);
         }
@@ -103,7 +103,7 @@ public class AnswerController : ControllerBase
     {
         try
         {
-            this.requestContext.PermissionResolver.HasPermission(Permissions.SolveWorks);
+            // this.requestContext.PermissionResolver.HasPermission(Permissions.SolveWorks);   // TODO: Add permission to check works
             var answers = await this.answerService.GetAsync();
             return Ok(answers);
         }
