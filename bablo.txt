@@ -8,3 +8,4 @@ Backend:
 6. Настройка дата контекста / Task1 / Max
 7. Core Module / Task2 / Alex
 8. Work Module / Task2 / Vovan
+9. Statistic Module / Task2 / Vovan

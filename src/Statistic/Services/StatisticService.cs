@@ -33,8 +33,12 @@ namespace noo.api.Statistic.Service
             try
             {
                 assignedWorks = await this.assignedWorkRepository.GetManyAsync(predicate);
-                if (assignedWorks == null)
+                if (assignedWorks.Count() == 0)
                     throw new NotFoundException("No corrected works with given criteria was found!");               
+            }
+            catch (NotFoundException)
+            {
+                throw;
             }
             catch (System.Exception)
             {
@@ -108,8 +112,8 @@ namespace noo.api.Statistic.Service
             try
             {
                 assignedWorks = await this.assignedWorkRepository.GetManyAsync(predicate);
-                if (assignedWorks == null)
-                    throw new NotFoundException("No corrected works with given criteria was found!");               
+                if (assignedWorks.Count() == 0)
+                    throw new NotFoundException("No corrected works with given criteria was found!");   //TODO: change catch             
             }
             catch (System.Exception)
             {

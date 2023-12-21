@@ -9,13 +9,13 @@ using System.ComponentModel.DataAnnotations;
 namespace noo.api.Statistic;
 
 [RegisterClassAsScoped]
-public class StatisticValidator : BaseRequestValidator<StatisticRequestBody>
+public class StatisticWorksValidator : BaseRequestValidator<StatisticRequestBody>
 {
-    public StatisticValidator()
+    public StatisticWorksValidator()
     {
         RuleFor(m => m.Type)
             .NotEmpty()
-            .Must(type => (isWork && (type == "average" || type == "max")) || (!isWork && (type == "failed" || type == "rate")))
+            .Must(type => type == "average" || type == "max")
             .WithMessage("Type error.");
         RuleFor(m => m.StartDate).NotEmpty();
         RuleFor(m => m.Type)
@@ -23,17 +23,6 @@ public class StatisticValidator : BaseRequestValidator<StatisticRequestBody>
             .WithMessage("Accuracy must be either 'week' or 'month'.");
         RuleFor(m => m.Users)
             .NotEmpty()
-            .When(m => !isStudent)
             .WithMessage("Users must contain at least one user.");
     }
-
-    Boolean isStudent = true;
-    Boolean isWork = true;
-
-    public void ValidatorSetUp(Boolean isStudent, Boolean isWork)
-    {
-        this.isStudent = isStudent;
-        this.isWork = isWork;
-    }
-
 }
